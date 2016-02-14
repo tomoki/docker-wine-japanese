@@ -1,5 +1,5 @@
 FROM ubuntu
-MAINTAINER Antoine Webanck <antoine.webanck@gmail.com>
+MAINTAINER Tomoki Imai <tomo832@gmail.com>
 
 # Creating the wine user and setting up dedicated non-root environment: replace 1001 by your user id (id -u) for X sharing.
 RUN useradd -u 1001 -d /home/wine -m -s /bin/bash wine
@@ -12,6 +12,12 @@ RUN chown wine:wine /home/wine/.finalize_installation.sh && \
 	chmod o+x /home/wine/.finalize_installation.sh && \
 	su -p -l wine -c "echo 'alias finalize_installation=\"bash /home/wine/.finalize_installation.sh\"' >> /home/wine/.bashrc" && \
 	su -p -l wine -c "echo 'alias steam=\"wine /home/wine/.wine/drive_c/Program\ Files/Steam/Steam.exe\"' >> /home/wine/.bashrc"
+
+# Install locale
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
 
 # Setting up the wineprefix to force 32 bit architecture.
 ENV WINEPREFIX /home/wine/.wine
