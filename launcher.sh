@@ -10,6 +10,7 @@ sudo docker run -ti --rm \
 		-v ~/.Xauthority:/home/wine/.Xauthority \
 		-v /dev/snd:/dev/snd --privileged \
 		-v /run/user/`id -u`/pulse/native:/run/user/`id -u`/pulse/native \
+		-v /etc/localtime:/etc/localtime:ro \
 		-v `pwd`/shared_directory:/home/wine/shared_directory \
 		--net=host \
 		--name $CONTAINER_NAME \
