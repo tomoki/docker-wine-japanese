@@ -13,6 +13,6 @@ sudo docker run -ti --rm \
 		-v `pwd`/shared_directory:/home/wine/shared_directory \
 		--net=host \
 		--name $CONTAINER_NAME \
-		webanck/docker-wine-steam \
+		tomoki/docker-wine-japanese \
 || \
 echo 'Container already exists, it need to be erased.'

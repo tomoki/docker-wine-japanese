@@ -35,6 +35,8 @@ ENV PULSE_SERVER unix:/run/user/1001/pulse/native
 ENV DEBIAN_FRONTEND noninteractive
 
 
+# Please comment out following line if you are not in Japan
+RUN sed -i'~' -E "s@http://(..\.)?(archive|security)\.ubuntu\.com/ubuntu@http://ftp.jaist.ac.jp/pub/Linux/ubuntu@g" /etc/apt/sources.list
 # We want the 32 bits version of wine allowing winetricks.
 RUN	dpkg --add-architecture i386 && \
 
@@ -59,7 +61,8 @@ RUN	dpkg --add-architecture i386 && \
 	apt-get install -y --no-install-recommends winbind && \
 # Installation of pulseaudio support for wine sound.
 	apt-get install -y --no-install-recommends pulseaudio:i386 libasound2-plugins:i386 && \
-
+# Will use vlgothic as wine font
+	apt-get install -y --no-install-recommends fonts-vlgothic && \
 # Installation of winetricks tricks as wine user.
 	su -p -l wine -c winecfg && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q corefonts' && \
@@ -68,7 +71,7 @@ RUN	dpkg --add-architecture i386 && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q xna40' && \
 	su -p -l wine -c 'xvfb-run -a winetricks d3dx9' && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q directplay' && \
-
+	cp /usr/share/fonts/truetype/vlgothic/VL-PGothic-Regular.ttf /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf /home/wine/.wine/drive_c/windows/Fonts && \
 # Cleaning up.
 	apt-get autoremove -y --purge software-properties-common && \
 	apt-get autoremove -y --purge xvfb && \
