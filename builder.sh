@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # Getting the user id.
-UID=`id -u`
+if [ -z "$UID" ]; then
+    UID=`id -u`
+fi
 
 # Checking for the right graphic driver to install.
 VGA_CARDS=`lspci | grep VGA`
