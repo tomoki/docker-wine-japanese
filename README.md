@@ -1,6 +1,11 @@
 # This is a fork from https://github.com/webanck/docker-wine-steam
 This is a fork of great tools [docker-wine-stream] (https://github.com/webanck/docker-wine-steam) to adapt it Japanese games (mostly novel games)
 
+The difference from original repo are following:
+- Change locale to Japanese for character corruption (in Japanese, "文字化け")
+- Install VLGothic as Japanese font
+- a little tweak
+
 #Windows (Japanese) games on Linux!
 
 Play Japanese Windows games on Linux using Wine to do so and confining the mess inside a Docker container.
