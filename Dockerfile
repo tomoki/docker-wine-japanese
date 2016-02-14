@@ -13,11 +13,6 @@ RUN chown wine:wine /home/wine/.finalize_installation.sh && \
 	su -p -l wine -c "echo 'alias finalize_installation=\"bash /home/wine/.finalize_installation.sh\"' >> /home/wine/.bashrc" && \
 	su -p -l wine -c "echo 'alias steam=\"wine /home/wine/.wine/drive_c/Program\ Files/Steam/Steam.exe\"' >> /home/wine/.bashrc"
 
-# Install locale
-RUN locale-gen ja_JP.UTF-8
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
 
 # Setting up the wineprefix to force 32 bit architecture.
 ENV WINEPREFIX /home/wine/.wine
@@ -71,7 +66,6 @@ RUN	dpkg --add-architecture i386 && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q xna40' && \
 	su -p -l wine -c 'xvfb-run -a winetricks d3dx9' && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q directplay' && \
-	cp /usr/share/fonts/truetype/vlgothic/VL-PGothic-Regular.ttf /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf /home/wine/.wine/drive_c/windows/Fonts && \
 # Cleaning up.
 	apt-get autoremove -y --purge software-properties-common && \
 	apt-get autoremove -y --purge xvfb && \
@@ -79,9 +73,17 @@ RUN	dpkg --add-architecture i386 && \
 	apt-get clean -y && \
 	rm -rf /home/wine/.cache && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-	
 #########################END OF INSTALLATIONS##########################
 
+# Install locale
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+
+RUN cp /usr/share/fonts/truetype/vlgothic/VL-PGothic-Regular.ttf /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf /home/wine/.wine/drive_c/windows/Fonts
+RUN cat /home/wine/.wine/user.reg
+RUN sed -e "s/Ume Gothic/VL Gothic/g" -e "s/Ume P Gothic/VL PGothic/g" -e "s/Ume Mincho/VL Gothic/g" -e "s/Ume P Mincho/VL PGothic/g" -e "s/Ume UI Gothic/VL PGothic/g" -i /home/wine/.wine/user.reg
 # Launching the shell by default as wine user.
 USER wine
 CMD /bin/bash
