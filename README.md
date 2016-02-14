@@ -1,6 +1,9 @@
-#Windows games on Linux! Steam games!
+# This is a fork from https://github.com/webanck/docker-wine-steam
+This is a fork of great tools [docker-wine-stream] (https://github.com/webanck/docker-wine-steam) to adapt it Japanese games (mostly novel games)
 
-Play Steam and Windows games on Linux using Wine to do so and confining the mess inside a Docker container.
+#Windows (Japanese) games on Linux!
+
+Play Japanese Windows games on Linux using Wine to do so and confining the mess inside a Docker container.
 Bind X11's socket for the windows to appear and use ear the sound from PulseAudio.
 
 ##Prerequisites
@@ -27,12 +30,14 @@ Currently, Nvidia cards should work out of the box whereas AMD and Intel Integra
 ##Installation
 Clone this repository to get the [Dockerfile](./Dockerfile) and the helper scripts to build and launch a corresponding container.
 ```
-git clone https://github.com/webanck/docker-wine-steam.git
-cd docker-wine-steam
+git clone https://github.com/tomoki/docker-wine-japanese.git
+cd docker-wine-japanese
 ./builder.sh
 ./launcher.sh
 ```
-Then you should be inside the container as the wine user. The last steps are an ultimate Wine configuration and the installation of Steam (which you can skip if you just want to use Wine for Windows games/applications).
+
+Then you should be inside the container as the wine user. 
+The last steps are an ultimate Wine configuration and the installation of Steam (which you can skip if you just want to use Wine for Windows games/applications).
 
 *Warning*: leaving the container typing `exit` or using the keys `Ctrl+C` will destroy all it's data including your installed games and saves. 
 You might want to copy some files into the [shared_directory](shared_directory) which is mounted in the home of the wine user. Some scripts are provided to help you [import](shared_directory/importSteam.sh) or [export](shared_directory/exportSteam.sh) quickly your steam installation.
