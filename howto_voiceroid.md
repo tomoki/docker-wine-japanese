@@ -61,7 +61,11 @@ Of course, we can run from its image.
 
 # 4. Run as a server
 As a bonus, I included server script in [shared_directory](shared_directory).
+
 ```{.sh}
+# in container
 wine start .wine/drive_c/users/wine/Desktop/VOICEROID＋\ 結月ゆかり.lnk
 python3 shared_directory/server.py
+# in host
+wget "http://localhost:12345?message=hello&speaker=yukari"
 ```
