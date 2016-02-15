@@ -3,9 +3,8 @@ Voiceroid is a proprietary software, so we need special procedures.
 Here is overview:
 
 1. Build the image which contains Wine 1.6 (1.7 or higher does not work well with voiceroid)
-2. Create Image file 
- - Make container which install voiceroid on top of the image.
- - Build image
+2.1. Make container which install voiceroid on top of the image.
+2.2. Build image
 3. Install image file
 4. Enjoy voiceroid :)
 
@@ -60,3 +59,9 @@ Of course, we can run from its image.
 ./launcher.sh
 ```
 
+# 4. Run as a server
+As a bonus, I included server script in [shared_directory](shared_directory).
+```{.sh}
+wine start .wine/drive_c/users/wine/Desktop/VOICEROID＋\ 結月ゆかり.lnk
+python3 shared_directory/server.py
+```
