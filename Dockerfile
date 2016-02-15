@@ -6,13 +6,6 @@ RUN useradd -u 1001 -d /home/wine -m -s /bin/bash wine
 ENV HOME /home/wine
 WORKDIR /home/wine
 
-# Adding the helper script and an alias to launch the steam to be installed.
-COPY finalize_installation.sh /home/wine/.finalize_installation.sh
-RUN chown wine:wine /home/wine/.finalize_installation.sh && \
-	chmod o+x /home/wine/.finalize_installation.sh && \
-	su -p -l wine -c "echo 'alias finalize_installation=\"bash /home/wine/.finalize_installation.sh\"' >> /home/wine/.bashrc" && \
-	su -p -l wine -c "echo 'alias steam=\"wine /home/wine/.wine/drive_c/Program\ Files/Steam/Steam.exe\"' >> /home/wine/.bashrc"
-
 
 # Setting up the wineprefix to force 32 bit architecture.
 ENV WINEPREFIX /home/wine/.wine
@@ -47,11 +40,8 @@ RUN	dpkg --add-architecture i386 && \
 	add-apt-repository ppa:ubuntu-wine/ppa && \
 	apt-get update && \
 
-# Installation of graphics driver.
-	apt-get install -y --no-install-recommends nvidia-current && \
-
 # Installation of win, winetricks and temporary xvfb to install winetricks tricks during docker build.
-	apt-get install -y --no-install-recommends wine1.7 winetricks xvfb && \
+	apt-get install -y --no-install-recommends wine1.6 winetricks xvfb && \
 # Installation of winbind to stop ntlm error messages.
 	apt-get install -y --no-install-recommends winbind && \
 # Installation of pulseaudio support for wine sound.
@@ -61,11 +51,7 @@ RUN	dpkg --add-architecture i386 && \
 # Installation of winetricks tricks as wine user.
 	su -p -l wine -c winecfg && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q corefonts' && \
-	su -p -l wine -c 'xvfb-run -a winetricks -q dotnet20' && \
 	su -p -l wine -c 'xvfb-run -a winetricks -q dotnet40' && \
-	su -p -l wine -c 'xvfb-run -a winetricks -q xna40' && \
-	su -p -l wine -c 'xvfb-run -a winetricks d3dx9' && \
-	su -p -l wine -c 'xvfb-run -a winetricks -q directplay' && \
 # Cleaning up.
 	apt-get autoremove -y --purge software-properties-common && \
 	apt-get autoremove -y --purge xvfb && \

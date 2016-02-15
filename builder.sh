@@ -41,7 +41,7 @@ sed -i -e "s/1001/$UID/g" /tmp/Dockerfile
 sed -i -e "s/nvidia-current/$PACKAGES/g" /tmp/Dockerfile
 
 # Building the image.
-sudo docker build -t tomoki/docker-wine-japanese /tmp/ 
+sudo docker build -t tomoki/docker-voiceroid /tmp/ 
 
 # Cleaning up.
 rm /tmp/Dockerfile /tmp/finalize_installation.sh

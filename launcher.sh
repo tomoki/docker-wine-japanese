@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONTAINER_NAME=vaporized_wine
+CONTAINER_NAME=voiceroid_cont
 
 echo 'Trying to run new data container.'
 #The container will be destroyed when left to avoid volume mounting problems, especially the hold of the Xauthority and pulseaudio files by non destroyed Docker volumes causing OS and Docker failures after reboot.
@@ -14,6 +14,6 @@ sudo docker run -ti --rm \
 		-v `pwd`/shared_directory:/home/wine/shared_directory \
 		--net=host \
 		--name $CONTAINER_NAME \
-		tomoki/docker-wine-japanese \
+		tomoki/docker-voiceroid \
 || \
 echo 'Container already exists, it need to be erased.'
