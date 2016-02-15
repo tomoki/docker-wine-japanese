@@ -71,5 +71,5 @@ wine start .wine/drive_c/users/wine/Desktop/VOICEROID＋\ 結月ゆかり.lnk
 python3 shared_directory/server.py
 
 # in host
-wget "http://localhost:12345?message=hello&speaker=yukari"
+wget "http://localhost:48234?message=hello&speaker=yukari"
 ```

@@ -5,7 +5,7 @@ import os
 import threading
 
 WHERE_IS_SPEECH_VOICEROID=os.path.join(os.path.dirname(os.path.realpath(__file__)), "speech_voiceroid.exe")
-PORT=12345
+PORT=48234
 lock = threading.Lock()
 
 def play_in_voiceroid(speaker, message):
@@ -42,6 +42,6 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-host = 'localhost'
-httpd = HTTPServer((host, PORT), MyHandler)
+host = '0.0.0.0'
+httpd = HTTPServer(("", PORT), MyHandler)
 httpd.serve_forever()
