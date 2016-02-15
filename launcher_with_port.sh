@@ -24,6 +24,7 @@ sudo docker run -ti --rm \
 		-e LANG=ja_JP.UTF-8 \
 		-e LANGUAGE=ja_JP:ja \
 		-e LC_ALL=ja_JP.UTF-8 \
+		-w /home/wine \
 		-p 12345:12345 \
 		voiceroid-dock \
 		/bin/sh -c /bin/bash
