@@ -71,5 +71,18 @@ wine start .wine/drive_c/users/wine/Desktop/VOICEROID＋\ 結月ゆかり.lnk
 python3 shared_directory/server.py
 
 # in host
+# get as wav file
 wget "http://localhost:48234?message=hello&speaker=yukari"
+# speak directly
+wget "http://localhost:48234?message=hello&speaker=yukari&direct=true"
 ```
+
+You can use following shellscript.
+
+```.sh
+#!/bin/sh
+encoded=`echo "$1" | nkf -wMQ | sed 's/=$//g' | tr = % | tr -d "\n"`
+echo $encoded
+curl "http://localhost:48234?direct=true&speaker=yukari&message=$encoded"
+```
+
