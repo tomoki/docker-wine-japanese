@@ -3,8 +3,9 @@ Voiceroid is a proprietary software, so we need special procedures.
 Here is overview:
 
 1. Build the image which contains Wine 1.6 (1.7 or higher does not work well with voiceroid)
-2.1. Make container which install voiceroid on top of the image.
-2.2. Build image
+2. Make Image
+  1. Make container which install voiceroid on top of the image.
+  2. Build image
 3. Install image file
 4. Enjoy voiceroid :)
 
