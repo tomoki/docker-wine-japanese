@@ -26,20 +26,18 @@ ENV DEBIAN_FRONTEND noninteractive
 # Please comment out following line if you are not in Japan
 RUN sed -i'~' -E "s@http://(..\.)?(archive|security)\.ubuntu\.com/ubuntu@http://ftp.jaist.ac.jp/pub/Linux/ubuntu@g" /etc/apt/sources.list
 # We want the 32 bits version of wine allowing winetricks.
-RUN	dpkg --add-architecture i386 && \
-
+RUN dpkg --add-architecture i386 && \
 # Updating and upgrading a bit.
 	apt-get update && \
 	apt-get upgrade -y && \
-
 # We need software-properties-common to add ppas.
 	apt-get install -y --no-install-recommends software-properties-common && \
-
 # Adding required ppas: graphics drivers and wine.
-	add-apt-repository ppa:ubuntu-x-swat/x-updates && \
+	# add-apt-repository ppa:ubuntu-x-swat/x-updates && \
 	add-apt-repository ppa:ubuntu-wine/ppa && \
 	apt-get update && \
-
+# To set locale to japanese
+	apt-get install -y --no-install-recommends locales && \
 # Installation of win, winetricks and temporary xvfb to install winetricks tricks during docker build.
 	apt-get install -y --no-install-recommends wine1.6 winetricks xvfb && \
 # Installation of winbind to stop ntlm error messages.
